@@ -14,7 +14,7 @@
         <div class="header__line"></div>
       </header>
       <main>
-        <div class="profile">
+        <section class="profile">
           <img src="./images/avatar.jpg" alt="Аватар" class="profile__avatar" />
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -26,8 +26,119 @@
             <p class="profile__spec">Исследователь океана</p>
           </div>
           <img src="./images/add.svg" alt="+" class="profile__add-button" />
-        </div>
-        <div class="elements"></div>
+        </section>
+        <section class="elements">
+          <ul class="elements__list">
+            <li class="element">
+              <img
+                class="element__image"
+                src="./images/dmitry-gladkikh-vrPqM2OB9nA-unsplash.jpg"
+                alt="Фото"
+              />
+              <div class="element__description">
+                <p class="element__text">Карачаевск</p>
+                <img
+                  class="element__heart"
+                  src="./images/heart.svg"
+                  alt="лайк"
+                />
+              </div>
+            </li>
+            <li class="element">
+              <img
+                class="element__image"
+                src="./images/juvnsky-anton-maksimov-5snYwb0q8hQ-unsplash.jpg"
+                alt="Фото"
+              />
+              <div class="element__description">
+                <p class="element__text">Домбай</p>
+                <img
+                  class="element__heart"
+                  src="./images/heart.svg"
+                  alt="лайк"
+                />
+              </div>
+            </li>
+            <li class="element">
+              <img
+                class="element__image"
+                src="./images/juvnsky-anton-maksimov-w6EY9XHpHC4-unsplash.jpg"
+                alt="Фото"
+              />
+              <div class="element__description">
+                <p class="element__text">Карачаево-Черкаааессия</p>
+                <img
+                  class="element__heart"
+                  src="./images/heart.svg"
+                  alt="лайк"
+                />
+              </div>
+            </li>
+            <li class="element">
+              <img
+                class="element__image"
+                src="./images/kirill-pershin-MPNhqIsm6IY-unsplash.jpg"
+                alt="Фото"
+              />
+              <div class="element__description">
+                <p class="element__text">Домбай</p>
+                <img
+                  class="element__heart"
+                  src="./images/heart.svg"
+                  alt="лайк"
+                />
+              </div>
+            </li>
+            <li class="element">
+              <img
+                class="element__image"
+                src="./images/mary-ray-6XHmCKu4_2k-unsplash.jpg"
+                alt="Фото"
+              />
+              <div class="element__description">
+                <p class="element__text">Домбай</p>
+                <img
+                  class="element__heart"
+                  src="./images/heart.svg"
+                  alt="лайк"
+                />
+              </div>
+            </li>
+            <li class="element">
+              <img
+                class="element__image"
+                src="./images/vladislav-zakharevich-WNMY5WPQBrc-unsplash.jpg"
+                alt="Фото"
+              />
+              <div class="element__description">
+                <p class="element__text">Бадукские озера</p>
+                <img
+                  class="element__heart"
+                  src="./images/heart.svg"
+                  alt="лайк"
+                />
+              </div>
+            </li>
+          </ul>
+        </section>
+        <footer class="footer">
+          <p class="footer__copyright">© 2020 Mesto Russia</p>
+        </footer>
+        <section class="popup">
+          <div class="popup__container">
+            <button class="popup__button-close">
+              <img src="images/Close Icon.svg" />
+            </button>
+            <p class="popup__title">Редактировать профиль</p>
+            <form class="popup__form">
+              <input class="popup__input popup__input_type_name" type="text" />
+              <input class="popup__input popup__input_type_spec" type="text" />
+              <button class="popup__button-submit" type="submit">
+                Сохранить
+              </button>
+            </form>
+          </div>
+        </section>
       </main>
     </div>
   </body>

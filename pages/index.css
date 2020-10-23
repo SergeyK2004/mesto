@@ -15,3 +15,25 @@
 @import url("../bloks/profile/__info/profile__info.css");
 @import url("../bloks/profile/__name/profile__name.css");
 @import url("../bloks/profile/__spec/profile__spec.css");
+
+@import url("../bloks/elements/elements.css");
+@import url("../bloks/elements/__list/elements__list.css");
+
+@import url("../bloks/element/element.css");
+@import url("../bloks/element/__heart/element__heart.css");
+@import url("../bloks/element/__image/element__image.css");
+@import url("../bloks/element/__text/element__text.css");
+@import url("../bloks/element/__description/element__description.css");
+
+@import url("../bloks/footer/footer.css");
+@import url("../bloks/footer/__copyright/footer__copyright.css");
+
+@import url("../bloks/popup/popup.css");
+@import url("../bloks/popup/__button-close/popup__button-close.css");
+@import url("../bloks/popup/__button-submit/popup__button-submit.css");
+@import url("../bloks/popup/__container/popup__container.css");
+@import url("../bloks/popup/__form/popup__form.css");
+@import url("../bloks/popup/__input/popup_input.css");
+@import url("../bloks/popup/__input/_type/popup__input_type.css");
+@import url("../bloks/popup/__title/popup__title.css");
+@import url("../bloks/popup/__opened/popup__opened.css");
