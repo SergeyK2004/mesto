@@ -17,12 +17,14 @@
         <section class="profile">
           <img src="./images/avatar.jpg" alt="Аватар" class="profile__avatar" />
           <div class="profile__info">
-            <h1 class="profile__name" value="Имя">Жак-Ив Кусто</h1>
-            <img
-              src="./images/Edit Button.svg"
-              alt="Редактировать"
-              class="profile__edit-button"
-            />
+            <div class="profile__first-line">
+              <h1 class="profile__name" value="Имя">Жак-Ив Кусто</h1>
+              <img
+                src="./images/Edit Button.svg"
+                alt="Редактировать"
+                class="profile__edit-button"
+              />
+            </div>
             <p class="profile__spec">Исследователь океана</p>
           </div>
           <img src="./images/add.svg" alt="+" class="profile__add-button" />
@@ -127,7 +129,7 @@
         <section class="popup">
           <div class="popup__container">
             <button class="popup__button-close">
-              <img src="images/Close Icon.svg" />
+              <img src="images/Close Icon.svg" class="popup__img-close" />
             </button>
             <p class="popup__title">Редактировать профиль</p>
             <form class="popup__form">
