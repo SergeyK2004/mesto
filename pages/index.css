@@ -15,6 +15,7 @@
 @import url("../bloks/profile/__name/profile__name.css");
 @import url("../bloks/profile/__spec/profile__spec.css");
 @import url("../bloks/profile/__name-line/profile__name-line.css");
+@import url("../bloks/profile/__edit-button-img/profile__edit-button-img.css");
 
 @import url("../bloks/elements/elements.css");
 @import url("../bloks/elements/__list/elements__list.css");
