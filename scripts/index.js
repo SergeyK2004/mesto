@@ -4,45 +4,31 @@ const popupCloseButton = document.querySelector(".popup__button-close");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileName = document.querySelector(".profile__name");
 const profileSpec = document.querySelector(".profile__spec");
+const inputName = document.querySelector(".popup__input_type_name");
+const inputSpec = document.querySelector(".popup__input_type_spec");
 
 function showPopup() {
-  let nameVal = profileName.textContent;
-  let specVal = profileSpec.textContent;
-  document.querySelector(".popup__input_type_name").value = nameVal;
-  document.querySelector(".popup__input_type_spec").value = specVal;
-  
-  // console.log(nameVal);
-  popup.classList.add("popup__opened");
+  inputName.value = profileName.textContent;
+  inputSpec.value = profileSpec.textContent;
+  popup.classList.add("popup_opened");
 }
 
 function closePopup() {
-  popup.classList.remove("popup__opened");
+  popup.classList.remove("popup_opened");
 }
 
 function submitPopup(evt) {
-  evt.preventDefault();
-  let newName = document.querySelector(".popup__input_type_name").value.trim();
-  let newSpec = document.querySelector(".popup__input_type_spec").value.trim();
-  // Проверим заполнены ли поля
-  if (newName.length === 0 || newSpec.length === 0) {
-    alert("Необходимо заполнить все поля!");
-  }
-  else {
-    profileName.textContent = newName;
-    profileSpec.textContent = newSpec;
-    popup.classList.remove("popup__opened");
-  }
-}
+  // убрал свою проверку на пустые поля.
+  // поставил реквизит обязательного поля в input 
+  // теперь можно красиво выделить текст, случайно нажать пробел и сохранить.
+  // чем это лучше я не знаю, но лучше никакой отсебятины, это я понял.
 
-function popupClickHandler(evt) {
-  console.log(evt.target.classList);
-  if (evt.target.classList.contains("popup")) {
-     popup.classList.remove("popup__opened");
-  
-  }
+  evt.preventDefault();
+  profileName.textContent = inputName.value;
+  profileSpec.textContent = inputSpec.value;
+  closePopup();
 }
 
 profileEditButton.addEventListener("click", showPopup);
 popupCloseButton.addEventListener("click", closePopup);
 popupForm.addEventListener('submit', submitPopup);
-popup.addEventListener('click', popupClickHandler);
