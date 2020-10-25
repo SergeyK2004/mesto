@@ -3,13 +3,13 @@
   color: #000000;
   position: relative;
   max-width: 430px;
-  min-height: 330px;
+  /* min-height: 330px; */
   border-radius: 10px;
 }
 
 @media screen and (max-width: 619px) {
   .popup__container {
-    min-height: 322px;
+    /* min-height: 322px; */
     margin: 0 19px;
   }
 }

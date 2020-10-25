@@ -2,7 +2,6 @@
   width: 150px;
   height: 50px;
   border: 2px solid #ffffff;
-  /* padding: 14px 65px; */
   margin-left: auto;
   border-radius: 2px;
   cursor: pointer;
@@ -18,6 +17,5 @@
     margin: 22px auto;
     width: 100%;
     height: 50px;
-    /* padding: 14px 0; */
   }
 }
