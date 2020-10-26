@@ -1,3 +1,14 @@
 .element__heart {
   margin-left: auto;
+  cursor: pointer;
+  padding: 0;
+  border-style: none;
+  background-color: rgba(0, 0, 0, 0);
+  outline-style: none;
+  width: 21px;
+  height: 19px;
+}
+
+.element__heart:hover {
+  opacity: 0.6;
 }
