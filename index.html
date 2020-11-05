@@ -122,7 +122,7 @@
       <footer class="footer">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
       </footer>
-      <section class="popup">
+      <section class="popup popup_profile">
         <div class="popup__container">
           <button type="button" class="popup__button-close">
             <img
@@ -132,7 +132,7 @@
             />
           </button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form name="popup" class="popup__form">
+          <form name="popup" class="popup__form popup__form_profile">
             <input
               required
               class="popup__input popup__input_type_name"
@@ -151,6 +151,52 @@
           </form>
         </div>
       </section>
+      <section class="popup popup_new-card">
+        <div class="popup__container">
+          <button type="button" class="popup__button-close">
+            <img
+              src="images/CloseIcon.svg"
+              class="popup__img-close"
+              alt="Закрыть"
+            />
+          </button>
+          <h2 class="popup__title">Новое место</h2>
+          <form name="popup" class="popup__form popup__form_new-card">
+            <input
+              required
+              placeholder="Название"
+              class="popup__input popup__input_type_title"
+              type="text"
+              name="title"
+            />
+            <input
+              required
+              placeholder="Ссылка на картинку"
+              class="popup__input popup__input_type_link"
+              type="text"
+              name="link"
+            />
+            <button class="popup__button-submit" type="submit">
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </section>
+      <template id="card">
+        <li class="element">
+          <img
+            class="element__image"
+            src="./images/dmitry-gladkikh-vrPqM2OB9nA-unsplash.jpg"
+            alt="Фото"
+          />
+          <div class="element__description">
+            <h2 class="element__text">Карачаевск</h2>
+            <button type="button" class="element__heart">
+              <img src="./images/heart.svg" alt="лайк" />
+            </button>
+          </div>
+        </li>
+      </template>
     </div>
     <script src="./scripts/index.js"></script>
   </body>
