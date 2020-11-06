@@ -1,5 +1,6 @@
 const popupProfile = document.querySelector(".popup_profile");
 const popupNewCard = document.querySelector(".popup_new-card");
+const popupImage = document.querySelector(".popup_image");
 const popupFormProfile = document.querySelector(".popup__form_profile");
 const popupFormNewCard = document.querySelector(".popup__form_new-card");
 const popupCloseButton = document.querySelectorAll(".popup__button-close");
@@ -43,28 +44,32 @@ const initialCards = [
 function showPopupProfile(evt) {
   inputName.value = profileName.textContent;
   inputSpec.value = profileSpec.textContent;
-  // console.log(popupProfile.classList[0]);
   popupProfile.classList.add("popup_opened");
-  // evt.target.closest('popup').style.display = 'none';
 }
+
+function showPopupImage(evt) {
+   popupImage.querySelector('.popup__image').src = evt.target.src;
+  popupImage.querySelector('.popup__image-title').textContent = evt.target.closest(".element").querySelector('.element__text').textContent;
+  popupImage.classList.add("popup_opened");
+}
+
 function showPopupNewCard() {
   popupNewCard.classList.add("popup_opened");
 }
 
 function closePopup(evt) {
-
   evt.target.closest(".popup").classList.remove("popup_opened");
 }
 
 function submitPopupProfile(evt) {
- evt.preventDefault();
+  evt.preventDefault();
   profileName.textContent = inputName.value;
   profileSpec.textContent = inputSpec.value;
   closePopup(evt);
 }
 
 function deleteCard(evt){
-evt.target.closest("li").remove();
+  evt.target.closest("li").remove();
 }
 
 function addNewCard(title, imgLink, method='append') {
@@ -72,6 +77,7 @@ function addNewCard(title, imgLink, method='append') {
   const cardElement = cardTemplate.cloneNode(true);
 
 cardElement.querySelector('.element__image').src = imgLink;
+cardElement.querySelector('.element__image').addEventListener('click', showPopupImage);
 cardElement.querySelector('.element__text').textContent = title;
 cardElement.querySelector('.element__heart').addEventListener('click', function (evt) {
   evt.target.src = (evt.target.src.includes("-black.svg") ? "./images/heart.svg" : "./images/heart-black.svg");
