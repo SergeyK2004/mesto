@@ -84,11 +84,10 @@ function createNewCard(title, imgLink) {
   cardElement.querySelector('.element__image').src = imgLink;
   cardElement.querySelector('.element__image').addEventListener('click', showPopupImage);
   cardElement.querySelector('.element__text').textContent = title;
-  cardElement.querySelector('.element__heart').addEventListener('click', function (evt) {
-    evt.target.src = (evt.target.src.includes("-black.svg") ? "./images/heart.svg" : "./images/heart-black.svg");
-  });
 
+  cardElement.querySelector('.element__heart').addEventListener('click', (evt) => evt.target.classList.toggle('element__heart_active'));
   cardElement.querySelector('.element__trash').addEventListener('click', deleteCard);
+
   return cardElement;
 }
 
