@@ -40,17 +40,20 @@ const initialCards = [
   }
 ];
 
-function showPopupProfile() {
+function showPopupProfile(evt) {
   inputName.value = profileName.textContent;
   inputSpec.value = profileSpec.textContent;
+  // console.log(popupProfile.classList[0]);
   popupProfile.classList.add("popup_opened");
+  // evt.target.closest('popup').style.display = 'none';
 }
 function showPopupNewCard() {
   popupNewCard.classList.add("popup_opened");
 }
 
 function closePopup(evt) {
-  evt.currentTarget.parentElement.parentElement.classList.remove("popup_opened");
+
+  evt.target.closest(".popup").classList.remove("popup_opened");
 }
 
 function submitPopupProfile(evt) {
