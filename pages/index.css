@@ -48,3 +48,6 @@
 @import url("../bloks/popup/__new-card-container/popup__new-card-container.css");
 @import url("../bloks/popup/__button-close/_type/popup__button-close_type_new-card.css");
 @import url("../bloks/popup/__title/_type/popup__title_type_new-card.css");
+@import url("../bloks/popup/__input-error/popup__input-error.css");
+@import url("../bloks/popup/__field/popup__field.css");
+@import url("../bloks/popup/__button-submit/_disabled/popup__button-submit_disabled.css");
