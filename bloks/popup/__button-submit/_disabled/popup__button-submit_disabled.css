@@ -2,4 +2,10 @@
   opacity: 0.2;
   background-color: #ffffff;
   color: #000000;
+  border-color: #000000;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

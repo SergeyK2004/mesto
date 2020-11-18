@@ -114,6 +114,9 @@ function submitPopupNewCard(evt) {
 
 initialCards.forEach(item => addNewCard(createNewCard(item.name, item.link)));
 
+inputName.value = profileName.textContent;
+inputSpec.value = profileSpec.textContent;
+
 profileEditButton.addEventListener("click", showPopupProfile);
 profileAddButton.addEventListener("click", showPopupNewCard);
 popupCloseButton.forEach((item) => {
