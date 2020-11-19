@@ -1,6 +1,5 @@
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputField) => {
-    console.log(inputField);
     return !inputField.validity.valid;
   });
 };
@@ -49,7 +48,7 @@ const setEventListeners = (formElement, settings) => {
       toggleButtonState(inputList, buttonElement, settings);
     });
   });
-  
+
 };
 
 
@@ -59,7 +58,7 @@ const enableValidation = (settings) => {
     formElement.addEventListener('submit', function (evt) {
       evt.preventDefault();
     });
-    setEventListeners(formElement, settings);   
+    setEventListeners(formElement, settings);
   });
 };
 
@@ -71,4 +70,4 @@ enableValidation({
   inactiveButtonClass: 'popup__button-submit_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
-}); 
+});
