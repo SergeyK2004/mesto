@@ -50,8 +50,22 @@ const setEventListeners = (formElement, settings) => {
       toggleButtonState(inputList, buttonElement, settings);
     });
   });
-
 };
+
+function checkValidation(thisForm, settings, newForm) {
+  const inputList = Array.from(thisForm.querySelectorAll(settings.inputSelector));
+  const buttonElement = thisForm.querySelector(settings.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement, settings);
+  inputList.forEach((inputElement) => {
+    if (newForm) {
+      hideInputError(thisForm, inputElement, settings);
+    }
+    else {
+      checkInputValidity(thisForm, inputElement, settings);
+    }
+    });
+  };
+
 
 
 const enableValidation = (settings) => {
@@ -73,3 +87,13 @@ enableValidation({
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 });
+
+function validateThisForm(thisForm, newForm=true) {
+  checkValidation(thisForm, {
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button-submit',
+    inactiveButtonClass: 'popup__button-submit_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  }, newForm);
+}

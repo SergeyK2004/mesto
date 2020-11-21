@@ -62,7 +62,7 @@ function closePopup(popupElement) {
 }
 
 function closeActivPopup(evt) {
-  activPopup = document.querySelector(".popup_opened");
+  const activPopup = document.querySelector(".popup_opened");
   if (activPopup != null){
     evt.preventDefault();
     closePopup(activPopup);
@@ -72,10 +72,7 @@ function closeActivPopup(evt) {
 function showPopupProfile(evt) {
   inputName.value = profileName.textContent;
   inputSpec.value = profileSpec.textContent;
-  if (popupFormProfileSubmitButton.classList.contains("popup__button-submit_disabled")) {
-    popupFormProfileSubmitButton.classList.remove("popup__button-submit_disabled");
-    popupFormProfileSubmitButton.disabled = false;
-  }
+  validateThisForm(popupFormProfile, true);
   openPopup(popupProfile);
 }
 
@@ -87,10 +84,7 @@ function showPopupImage(evt) {
 
 function showPopupNewCard() {
   popupFormNewCard.reset();
-  if (! popupFormNewCardSubmitButton.classList.contains("popup__button-submit_disabled")) {
-    popupFormNewCardSubmitButton.classList.add("popup__button-submit_disabled");
-    popupFormNewCardSubmitButton.disabled = true;
-  }
+  validateThisForm(popupFormNewCard, true);
   openPopup(popupNewCard);
 }
 
