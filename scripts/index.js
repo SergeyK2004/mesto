@@ -76,12 +76,6 @@ function showPopupProfile(evt) {
   openPopup(popupProfile);
 }
 
-function showPopupImage(evt) {
-  popupImagePhoto.src = evt.target.src;
-  popupImageTitle.textContent = evt.target.closest(".element").querySelector('.element__text').textContent;
-  openPopup(popupImage);
-}
-
 function showPopupNewCard() {
   popupFormNewCard.reset();
   validateThisForm(popupFormNewCard, true);
@@ -93,10 +87,6 @@ function submitPopupProfile(evt) {
   profileName.textContent = inputName.value;
   profileSpec.textContent = inputSpec.value;
   closePopup(evt.target.closest(".popup"));
-}
-
-function deleteCard(evt){
-  evt.target.closest(".element").remove();
 }
 
 function createNewCard(title, imgLink) {
