@@ -3,32 +3,34 @@ export class Card {
     this._cardSelector = cardSelector;
     this._image = image;
     this._title = title;
+    this._cardTemplate = document.querySelector(this._cardSelector);
   }
 
   _getTemplate() {
-    const cardElement = document
-      .querySelector(this._cardSelector)
-      .content
-      .cloneNode(true);
+    const cardElement = this._cardTemplate.content.cloneNode(true);
     return cardElement;
   }
+  _revertHeart = (evt) => {
+    evt.target.classList.toggle("element__heart_active");
+  };
 
-
- _deleteCard(evt){
-  evt.target.closest(".element").remove();
-}
+  _deleteCard(evt) {
+    evt.target.closest(".element").remove();
+  }
 
   _setEventListeners() {
-     this._element.querySelector('.element__heart').addEventListener('click', (evt) => evt.target.classList.toggle('element__heart_active'));
-    this._element.querySelector('.element__trash').addEventListener('click', this._deleteCard);
-
-
+    this._element
+      .querySelector(".element__heart")
+      .addEventListener("click", this._revertHeart);
+    this._element
+      .querySelector(".element__trash")
+      .addEventListener("click", this._deleteCard);
   }
 
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector('.element__image').src = this._image;
-    this._element.querySelector('.element__text').textContent = this._title;
+    this._element.querySelector(".element__image").src = this._image;
+    this._element.querySelector(".element__text").textContent = this._title;
     this._setEventListeners();
     return this._element;
   }
