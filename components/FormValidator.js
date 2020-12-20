@@ -1,8 +1,7 @@
-export class FormValidator {
-  constructor(settings, checkingForm, newForm = false) {
+export default class FormValidator {
+  constructor(settings, checkingForm) {
     this._settings = settings;
     this._checkingForm = checkingForm;
-    this._newForm = newForm;
   }
 
   _hasInvalidInput = (inputList) => {
@@ -79,7 +78,8 @@ export class FormValidator {
     });
   }
 
-  enableValidation = () => {
+  enableValidation = (newForm = false) => {
+    this._newForm = newForm;
     if (this._newForm) {
       this._checkValidation(this._checkingForm, this._settings, this._newForm);
     } else {
