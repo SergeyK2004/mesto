@@ -1,5 +1,14 @@
-import {validateSettings, initialCards, popupFormProfile, inputName, inputSpec, 
-  popupFormNewCard, profileAddButton, profileEditButton} from "../utils/constants.js";
+import "./index.css";
+import {
+  validateSettings,
+  initialCards,
+  popupFormProfile,
+  inputName,
+  inputSpec,
+  popupFormNewCard,
+  profileAddButton,
+  profileEditButton,
+} from "../utils/constants.js";
 
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
@@ -13,14 +22,14 @@ const newPopupProfile = new PopupWithForm({
   handleFormSubmit: (item) => {
     userObject.setUserInfo({
       userName: item.name,
-      userSpec: item.spec
-    })
-  }
+      userSpec: item.spec,
+    });
+  },
 });
 
 const userObject = new UserInfo({
   nameSelector: ".profile__name",
-  specSelector: ".profile__spec"
+  specSelector: ".profile__spec",
 });
 
 const newPopupNewCard = new PopupWithForm({
@@ -36,25 +45,23 @@ const newPopupNewCard = new PopupWithForm({
         imageInf.textContent = evt.target
           .closest(".element")
           .querySelector(".element__text").textContent;
-        const imagePopup = new PopupWithImage({
-          item: imageInf}, ".popup_image");
-        imagePopup.open();      
-      }
+        const imagePopup = new PopupWithImage(
+          {
+            item: imageInf,
+          },
+          ".popup_image"
+        );
+        imagePopup.open();
+      },
     });
     const cardElement = card.generateCard();
     cardArray.prependItem(cardElement);
-  }
+  },
 });
 
-const profileValidator = new FormValidator(
-  validateSettings,
-  popupFormProfile
-);
+const profileValidator = new FormValidator(validateSettings, popupFormProfile);
 
-const newCardValidator = new FormValidator(
-  validateSettings,
-  popupFormNewCard
-);
+const newCardValidator = new FormValidator(validateSettings, popupFormNewCard);
 
 function showPopupProfile(evt) {
   const myUser = userObject.getUserInfo();
@@ -70,8 +77,12 @@ function showPopupImage(evt) {
   imageInf.textContent = evt.target
     .closest(".element")
     .querySelector(".element__text").textContent;
-  const imagePopup = new PopupWithImage({
-    item: imageInf}, ".popup_image");
+  const imagePopup = new PopupWithImage(
+    {
+      item: imageInf,
+    },
+    ".popup_image"
+  );
   imagePopup.open();
 }
 
@@ -81,27 +92,34 @@ function showPopupNewCard() {
   newPopupNewCard.open();
 }
 
-const cardArray = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const cardElement = new Card({
-      link: item.link,
-      title: item.name,
-      cardSelector: "#card",
-      handleCardClick: (evt) => {
-        const imageInf = {};
-        imageInf.src = evt.target.src;
-        imageInf.textContent = evt.target
-          .closest(".element")
-          .querySelector(".element__text").textContent;
-        const imagePopup = new PopupWithImage({
-          item: imageInf}, ".popup_image");
-        imagePopup.open();      
-      }
-    }).generateCard();
-    cardArray.appendItem(cardElement);
-  }
-}, ".elements__list");
+const cardArray = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = new Card({
+        link: item.link,
+        title: item.name,
+        cardSelector: "#card",
+        handleCardClick: (evt) => {
+          const imageInf = {};
+          imageInf.src = evt.target.src;
+          imageInf.textContent = evt.target
+            .closest(".element")
+            .querySelector(".element__text").textContent;
+          const imagePopup = new PopupWithImage(
+            {
+              item: imageInf,
+            },
+            ".popup_image"
+          );
+          imagePopup.open();
+        },
+      }).generateCard();
+      cardArray.appendItem(cardElement);
+    },
+  },
+  ".elements__list"
+);
 
 cardArray.renderItems();
 
