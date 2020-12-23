@@ -4,17 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto Russia</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
 
   <body class="body">
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" class="logo" alt="лого" />
+        <img src="<%=require('./images/logo.svg')%>" class="logo" alt="лого" />
       </header>
       <main>
         <section class="profile">
-          <img src="./images/avatar.jpg" alt="Аватар" class="profile__avatar" />
+          <img
+            src="<%=require('./images/avatar.jpg')%>"
+            alt="Аватар"
+            class="profile__avatar"
+          />
           <div class="profile__info">
             <div class="profile__name-line">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -24,7 +27,7 @@
                 class="profile__edit-button"
               >
                 <img
-                  src="./images/EditButton.svg"
+                  src="<%=require('./images/EditButton.svg')%>"
                   alt="Редактировать"
                   class="profile__edit-button-img"
                 />
@@ -34,8 +37,8 @@
           </div>
           <button name="addButton" type="button" class="profile__add-button">
             <img
-              src="./images/add.svg"
-              alt="+"
+              src="<%=require('./images/add.svg')%>"
+              alt="Добавить"
               class="profile__add-button-img"
             />
           </button>
@@ -51,7 +54,7 @@
         <div class="popup__container">
           <button type="button" class="popup__button-close">
             <img
-              src="images/CloseIcon.svg"
+              src="<%=require('./images/CloseIcon.svg')%>"
               class="popup__img-close"
               alt="Закрыть"
             />
@@ -95,7 +98,7 @@
             class="popup__button-close popup__button-close_type_new-card"
           >
             <img
-              src="images/CloseIcon.svg"
+              src="<%=require('./images/CloseIcon.svg')%>"
               class="popup__img-close"
               alt="Закрыть"
             />
@@ -140,7 +143,7 @@
         <div class="popup__image-container">
           <button type="button" class="popup__button-close">
             <img
-              src="images/CloseIcon.svg"
+              src="<%=require('./images/CloseIcon.svg')%>"
               class="popup__img-close"
               alt="Закрыть"
             />
@@ -148,7 +151,7 @@
           <img
             class="popup__image"
             alt="Изображение"
-            src="./images/dmitry-gladkikh-vrPqM2OB9nA-unsplash.jpg"
+            src="<%=require('./images/dmitry-gladkikh-vrPqM2OB9nA-unsplash.jpg')%>"
           />
           <p class="popup__image-title">Подпись</p>
         </div>
@@ -157,7 +160,7 @@
         <li class="element">
           <img
             class="element__image"
-            src="./images/dmitry-gladkikh-vrPqM2OB9nA-unsplash.jpg"
+            src="<%=require('./images/dmitry-gladkikh-vrPqM2OB9nA-unsplash.jpg')%>"
             alt="Фото"
           />
           <div class="element__description">
@@ -165,11 +168,10 @@
             <button type="button" class="element__heart"></button>
           </div>
           <button type="button" class="element__trash">
-            <img src="./images/trash.svg" alt="корзина" />
+            <img src="<%=require('./images/trash.svg')%>" alt="корзина" />
           </button>
         </li>
       </template>
     </div>
-    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>
