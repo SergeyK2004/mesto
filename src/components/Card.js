@@ -8,15 +8,17 @@ export default class Card {
   }
 
   _getTemplate() {
-    const cardElement = this._cardTemplate.content.cloneNode(true);
+    const cardElement = this._cardTemplate.content.querySelector('.element').cloneNode(true);
     return cardElement;
   }
   _revertHeart = (evt) => {
-    evt.target.classList.toggle("element__heart_active");
+    this._element.querySelector('.element__heart').classList.toggle("element__heart_active");
   };
 
   _deleteCard(evt) {
-    evt.target.closest(".element").remove();
+    this._element.remove();
+    this._element = null;
+
   }
 
   _setEventListeners() {
@@ -25,7 +27,7 @@ export default class Card {
       .addEventListener("click", this._revertHeart);
     this._element
       .querySelector(".element__trash")
-      .addEventListener("click", this._deleteCard);
+      .addEventListener("click", () => this._deleteCard());
     this._imageElement.addEventListener("click", this._handleCardClick);
   }
 
