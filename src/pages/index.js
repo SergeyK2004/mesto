@@ -32,6 +32,7 @@ const newPopupProfile = new PopupWithForm({
 const userObject = new UserInfo({
   nameSelector: ".profile__name",
   specSelector: ".profile__spec",
+  avatarSelector: ".profile__avatar",
 });
 
 function createCard(item) {
@@ -97,11 +98,11 @@ function getUserFromServer() {
       return res.json();
     })
     .then((res) => {
-      console.log(res.name);
       userObject.setUserInfo({
         userName: res.name,
         userSpec: res.about,
       });
+      userObject.setUserAvatar(res.avatar);
     })
     .catch((err) => {
       console.log(err);
