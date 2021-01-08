@@ -121,7 +121,30 @@ const cardArray = new Section(
   ".elements__list"
 );
 
+function getUserFromServer() {
+  fetch("https://mesto.nomoreparties.co/v1/cohort-19/users/me", {
+    headers: {
+      authorization: "d1e1c4f1-84e7-4d89-bcad-9b9b9cbdb035",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      console.log(res.name);
+      userObject.setUserInfo({
+        userName: res.name,
+        userSpec: res.about,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 cardArray.renderItems();
+
+getUserFromServer();
 
 profileEditButton.addEventListener("click", showPopupProfile);
 profileAddButton.addEventListener("click", showPopupNewCard);
