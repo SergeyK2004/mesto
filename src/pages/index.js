@@ -1,7 +1,6 @@
 import "./index.css";
 import {
   validateSettings,
-  initialCards,
   popupFormProfile,
   inputName,
   inputSpec,
@@ -16,16 +15,40 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import { Api } from "../components/Api";
 
 const imagePopup = new PopupWithImage(".popup_image");
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-19/",
+  headers: {
+    authorization: "d1e1c4f1-84e7-4d89-bcad-9b9b9cbdb035",
+    "Content-Type": "application/json",
+  },
+});
 
 const newPopupProfile = new PopupWithForm({
   formSelector: ".popup_profile",
   handleFormSubmit: (item) => {
-    userObject.setUserInfo({
-      userName: item.name,
-      userSpec: item.spec,
-    });
+    api
+      .setUserInfo(item)
+      .then((res) => {
+        userObject.setUserInfo({
+          userName: res.name,
+          userSpec: res.about,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+});
+
+const newPopupNewCard = new PopupWithForm({
+  formSelector: ".popup_new-card",
+  handleFormSubmit: (item) => {
+    const cardElement = createCard(item);
+    cardArray.addItem(cardElement, false);
   },
 });
 
@@ -38,7 +61,7 @@ const userObject = new UserInfo({
 function createCard(item) {
   return new Card({
     link: item.link,
-    title: item.title,
+    title: item.name,
     cardSelector: "#card",
     handleCardClick: (evt) => {
       const imageInf = {};
@@ -50,14 +73,6 @@ function createCard(item) {
     },
   }).generateCard();
 }
-
-const newPopupNewCard = new PopupWithForm({
-  formSelector: ".popup_new-card",
-  handleFormSubmit: (item) => {
-    const cardElement = createCard(item);
-    cardArray.addItem(cardElement, false);
-  },
-});
 
 const profileValidator = new FormValidator(validateSettings, popupFormProfile);
 
@@ -76,10 +91,8 @@ function showPopupNewCard() {
   newCardValidator.enableValidation(true);
   newPopupNewCard.open();
 }
-
 const cardArray = new Section(
   {
-    items: initialCards,
     renderer: (item) => {
       const cardElement = createCard(item);
       cardArray.addItem(cardElement, true);
@@ -88,30 +101,27 @@ const cardArray = new Section(
   ".elements__list"
 );
 
-function getUserFromServer() {
-  fetch("https://mesto.nomoreparties.co/v1/cohort-19/users/me", {
-    headers: {
-      authorization: "d1e1c4f1-84e7-4d89-bcad-9b9b9cbdb035",
-    },
+api
+  .getInitialCards()
+  .then((res) => {
+    cardArray.renderItems(res);
   })
-    .then((res) => {
-      return res.json();
-    })
-    .then((res) => {
-      userObject.setUserInfo({
-        userName: res.name,
-        userSpec: res.about,
-      });
-      userObject.setUserAvatar(res.avatar);
-    })
-    .catch((err) => {
-      console.log(err);
+  .catch((err) => {
+    console.log(err);
+  });
+
+api
+  .getUserInfo()
+  .then((res) => {
+    userObject.setUserInfo({
+      userName: res.name,
+      userSpec: res.about,
     });
-}
-
-cardArray.renderItems();
-
-getUserFromServer();
+    userObject.setUserAvatar(res.avatar);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 profileEditButton.addEventListener("click", showPopupProfile);
 profileAddButton.addEventListener("click", showPopupNewCard);
