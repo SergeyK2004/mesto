@@ -9,6 +9,8 @@ import {
   profileEditButton,
 } from "../utils/constants.js";
 
+let thisUser = "";
+
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
@@ -47,8 +49,15 @@ const newPopupProfile = new PopupWithForm({
 const newPopupNewCard = new PopupWithForm({
   formSelector: ".popup_new-card",
   handleFormSubmit: (item) => {
-    const cardElement = createCard(item);
-    cardArray.addItem(cardElement, false);
+    api
+      .setNewCard(item)
+      .then((res) => {
+        const cardElement = createCard(item);
+        cardArray.addItem(cardElement, false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 });
 
@@ -59,9 +68,12 @@ const userObject = new UserInfo({
 });
 
 function createCard(item) {
+  console.log(item);
   return new Card({
     link: item.link,
     title: item.name,
+    owner: item.owner._id,
+    thisUser: thisUser,
     cardSelector: "#card",
     handleCardClick: (evt) => {
       const imageInf = {};
@@ -102,17 +114,9 @@ const cardArray = new Section(
 );
 
 api
-  .getInitialCards()
-  .then((res) => {
-    cardArray.renderItems(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-api
   .getUserInfo()
   .then((res) => {
+    thisUser = res._id;
     userObject.setUserInfo({
       userName: res.name,
       userSpec: res.about,
@@ -120,7 +124,18 @@ api
     userObject.setUserAvatar(res.avatar);
   })
   .catch((err) => {
+    thisUser = "Guest";
     console.log(err);
+  })
+  .finally(() => {
+    api
+      .getInitialCards()
+      .then((res) => {
+        cardArray.renderItems(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 
 profileEditButton.addEventListener("click", showPopupProfile);

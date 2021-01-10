@@ -1,24 +1,29 @@
 export default class Card {
-  constructor({link, title, cardSelector, handleCardClick}) {
+  constructor({ link, title, owner, thisUser, cardSelector, handleCardClick }) {
     this._cardSelector = cardSelector;
     this._image = link;
     this._title = title;
+    this._owner = owner;
+    this._thisUser = thisUser;
     this._cardTemplate = document.querySelector(this._cardSelector);
     this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
-    const cardElement = this._cardTemplate.content.querySelector('.element').cloneNode(true);
+    const cardElement = this._cardTemplate.content
+      .querySelector(".element")
+      .cloneNode(true);
     return cardElement;
   }
   _revertHeart = (evt) => {
-    this._element.querySelector('.element__heart').classList.toggle("element__heart_active");
+    this._element
+      .querySelector(".element__heart")
+      .classList.toggle("element__heart_active");
   };
 
   _deleteCard(evt) {
     this._element.remove();
     this._element = null;
-
   }
 
   _setEventListeners() {
@@ -36,6 +41,12 @@ export default class Card {
     this._imageElement = this._element.querySelector(".element__image");
     this._imageElement.src = this._image;
     this._element.querySelector(".element__text").textContent = this._title;
+    console.log(this._owner, this._thisUser);
+    if (this._owner !== this._thisUser) {
+      this._element
+        .querySelector(".element__trash")
+        .classList.add("element__trash_disable");
+    }
     this._setEventListeners();
     return this._element;
   }

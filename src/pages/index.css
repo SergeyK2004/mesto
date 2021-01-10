@@ -27,6 +27,7 @@
 @import url("../bloks/element/__text/element__text.css");
 @import url("../bloks/element/__description/element__description.css");
 @import url("../bloks/element/__trash/element__trash.css");
+@import url("../bloks/element/__trash/_disable/element__trash_disable.css");
 
 @import url("../bloks/footer/footer.css");
 @import url("../bloks/footer/__copyright/footer__copyright.css");
