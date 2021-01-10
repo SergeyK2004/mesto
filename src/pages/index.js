@@ -52,7 +52,7 @@ const newPopupNewCard = new PopupWithForm({
     api
       .setNewCard(item)
       .then((res) => {
-        const cardElement = createCard(item);
+        const cardElement = createCard(res);
         cardArray.addItem(cardElement, false);
       })
       .catch((err) => {
