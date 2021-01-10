@@ -1,10 +1,19 @@
 export default class Card {
-  constructor({ link, title, owner, thisUser, cardSelector, handleCardClick }) {
+  constructor({
+    link,
+    title,
+    owner,
+    thisUser,
+    likes,
+    cardSelector,
+    handleCardClick,
+  }) {
     this._cardSelector = cardSelector;
     this._image = link;
     this._title = title;
     this._owner = owner;
     this._thisUser = thisUser;
+    this._likes = likes;
     this._cardTemplate = document.querySelector(this._cardSelector);
     this._handleCardClick = handleCardClick;
   }
@@ -41,11 +50,18 @@ export default class Card {
     this._imageElement = this._element.querySelector(".element__image");
     this._imageElement.src = this._image;
     this._element.querySelector(".element__text").textContent = this._title;
-    console.log(this._owner, this._thisUser);
+    this._element.querySelector(
+      ".element__likes-count"
+    ).textContent = this._likes.length;
     if (this._owner !== this._thisUser) {
       this._element
         .querySelector(".element__trash")
         .classList.add("element__trash_disable");
+    }
+    if (this._likes.findIndex((item) => item._id == this._thisUser) !== -1) {
+      this._element
+        .querySelector(".element__heart")
+        .classList.add("element__heart_active");
     }
     this._setEventListeners();
     return this._element;

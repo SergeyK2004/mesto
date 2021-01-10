@@ -74,6 +74,7 @@ function createCard(item) {
     title: item.name,
     owner: item.owner._id,
     thisUser: thisUser,
+    likes: item.likes,
     cardSelector: "#card",
     handleCardClick: (evt) => {
       const imageInf = {};
