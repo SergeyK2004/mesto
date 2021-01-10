@@ -68,13 +68,14 @@ const userObject = new UserInfo({
 });
 
 function createCard(item) {
-  console.log(item);
+  // console.log(item);
   return new Card({
     link: item.link,
     title: item.name,
     owner: item.owner._id,
     thisUser: thisUser,
     likes: item.likes,
+    cardId: item._id,
     cardSelector: "#card",
     handleCardClick: (evt) => {
       const imageInf = {};
@@ -83,6 +84,16 @@ function createCard(item) {
         .closest(".element")
         .querySelector(".element__text").textContent;
       imagePopup.open(imageInf);
+    },
+    handleHeartClick: (likedCardId, deleteLike, cardObject) => {
+      api
+        .reverseLike(likedCardId, deleteLike)
+        .then((res) => {
+          cardObject.likesUpdate(res.likes);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   }).generateCard();
 }
