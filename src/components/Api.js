@@ -57,7 +57,7 @@ export class Api {
     });
   }
 
-  delNewCard(cardId) {
+  delCard(cardId) {
     return fetch(this._baseUrl + "cards/" + cardId, {
       headers: this._headers,
       method: "DELETE",

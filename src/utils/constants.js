@@ -10,6 +10,9 @@ export const inputTitle = popupNewCard.querySelector(
 );
 export const inputLink = popupNewCard.querySelector(".popup__input_type_link");
 
+export const profileEditAvatarButton = document.querySelector(
+  ".profile__edit-avatar"
+);
 export const profileAddButton = document.querySelector(".profile__add-button");
 export const profileEditButton = document.querySelector(
   ".profile__edit-button"

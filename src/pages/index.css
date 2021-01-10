@@ -16,6 +16,8 @@
 @import url("../bloks/profile/__spec/profile__spec.css");
 @import url("../bloks/profile/__name-line/profile__name-line.css");
 @import url("../bloks/profile/__edit-button-img/profile__edit-button-img.css");
+@import url("../bloks/profile/__avatar-img/profile__avatar-img.css");
+@import url("../bloks/profile/__edit-avatar/profile__edit-avatar.css");
 
 @import url("../bloks/elements/elements.css");
 @import url("../bloks/elements/__list/elements__list.css");
@@ -56,3 +58,4 @@
 @import url("../bloks/popup/__field/popup__field.css");
 @import url("../bloks/popup/__button-submit/_disabled/popup__button-submit_disabled.css");
 @import url("../bloks/popup/__input-error/_visible/popup__input-error_visible.css");
+@import url("../bloks/popup/__confirm-container/popup__confirm-container.css");

@@ -7,6 +7,7 @@ import {
   popupFormNewCard,
   profileAddButton,
   profileEditButton,
+  profileEditAvatarButton,
 } from "../utils/constants.js";
 
 let thisUser = "";
@@ -18,6 +19,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { Api } from "../components/Api";
+import PopupWithConfirm from "../components/PopupWithConfirm";
 
 const imagePopup = new PopupWithImage(".popup_image");
 
@@ -54,6 +56,21 @@ const newPopupNewCard = new PopupWithForm({
       .then((res) => {
         const cardElement = createCard(res);
         cardArray.addItem(cardElement, false);
+        console.log("1");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+});
+const newPopupConfirm = new PopupWithConfirm({
+  formSelector: ".popup__confirm",
+  handleFormSubmit: (cardObject) => {
+    api
+      .delCard(cardObject._cardId)
+      .then((res) => {
+        cardObject.deleteCard();
+        console.log("2");
       })
       .catch((err) => {
         console.log(err);
@@ -64,11 +81,10 @@ const newPopupNewCard = new PopupWithForm({
 const userObject = new UserInfo({
   nameSelector: ".profile__name",
   specSelector: ".profile__spec",
-  avatarSelector: ".profile__avatar",
+  avatarSelector: ".profile__avatar-img",
 });
 
 function createCard(item) {
-  // console.log(item);
   return new Card({
     link: item.link,
     title: item.name,
@@ -90,10 +106,15 @@ function createCard(item) {
         .reverseLike(likedCardId, deleteLike)
         .then((res) => {
           cardObject.likesUpdate(res.likes);
+          console.log("3");
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    handleTrashClick: (cardObject) => {
+      // console.log(cardObject);
+      newPopupConfirm.open(cardObject);
     },
   }).generateCard();
 }
@@ -103,6 +124,14 @@ const profileValidator = new FormValidator(validateSettings, popupFormProfile);
 const newCardValidator = new FormValidator(validateSettings, popupFormNewCard);
 
 function showPopupProfile(evt) {
+  const myUser = userObject.getUserInfo();
+  inputName.value = myUser.profileName;
+  inputSpec.value = myUser.profileSpec;
+  profileValidator.enableValidation(true);
+  newPopupProfile.open();
+}
+
+function showPopupAvatar(evt) {
   const myUser = userObject.getUserInfo();
   inputName.value = myUser.profileName;
   inputSpec.value = myUser.profileSpec;
@@ -152,6 +181,7 @@ api
 
 profileEditButton.addEventListener("click", showPopupProfile);
 profileAddButton.addEventListener("click", showPopupNewCard);
+profileEditAvatarButton.addEventListener("click", showPopupAvatar);
 
 profileValidator.enableValidation(false);
 newCardValidator.enableValidation(false);

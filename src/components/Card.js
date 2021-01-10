@@ -9,6 +9,7 @@ export default class Card {
     cardSelector,
     handleCardClick,
     handleHeartClick,
+    handleTrashClick,
   }) {
     this._cardSelector = cardSelector;
     this._image = link;
@@ -20,6 +21,7 @@ export default class Card {
     this._cardTemplate = document.querySelector(this._cardSelector);
     this._handleCardClick = handleCardClick;
     this._handleHeartClick = handleHeartClick;
+    this._handleTrashClick = handleTrashClick;
   }
 
   _getTemplate() {
@@ -39,8 +41,11 @@ export default class Card {
       this._likes.length + (deleteLike ? -1 : 1);
     this._handleHeartClick(this._cardId, deleteLike, this);
   };
-
-  _deleteCard(evt) {
+  _trashClick = (evt) => {
+    console.log("d");
+    this._handleTrashClick(this);
+  };
+  deleteCard() {
     this._element.remove();
     this._element = null;
   }
@@ -51,7 +56,7 @@ export default class Card {
       .addEventListener("click", this._revertHeart);
     this._element
       .querySelector(".element__trash")
-      .addEventListener("click", () => this._deleteCard());
+      .addEventListener("click", this._trashClick);
     this._imageElement.addEventListener("click", this._handleCardClick);
   }
   likesUpdate(likesArray) {
