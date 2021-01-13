@@ -20,7 +20,6 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { Api } from "../components/Api";
-import PopupWithConfirm from "../components/PopupWithConfirm";
 
 const imagePopup = new PopupWithImage(".popup_image");
 
@@ -89,17 +88,18 @@ const newPopupNewCard = new PopupWithForm({
       });
   },
 });
-const newPopupConfirm = new PopupWithConfirm({
+const newPopupConfirm = new PopupWithForm({
   formSelector: ".popup_confirm",
-  handleFormSubmit: (cardObject) => {
+  handleFormSubmit: (item) => {
     const buttonText = newPopupConfirm._submitButton.textContent;
     newPopupConfirm._submitButton.textContent = "Удаление..";
     api
-      .delCard(cardObject._cardId)
+      .delCard(newPopupConfirm.cardObject)
       .then((res) => {
-        cardObject.deleteCard();
+        newPopupConfirm.cardObject.deleteCard();
         newPopupConfirm._submitButton.textContent = buttonText;
         newPopupConfirm.close();
+        newPopupConfirm.cardObject = "";
       })
       .catch((err) => {
         console.log(err);
@@ -141,7 +141,8 @@ function createCard(item) {
         });
     },
     handleTrashClick: (cardObject) => {
-      newPopupConfirm.open(cardObject);
+      newPopupConfirm.cardObject = cardObject;
+      newPopupConfirm.open();
     },
   }).generateCard();
 }

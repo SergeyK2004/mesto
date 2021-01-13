@@ -17,7 +17,7 @@ export default class Card {
     this._owner = owner;
     this._thisUser = thisUser;
     this._likes = likes;
-    this._cardId = cardId;
+    this.cardId = cardId;
     this._cardTemplate = document.querySelector(this._cardSelector);
     this._handleCardClick = handleCardClick;
     this._handleHeartClick = handleHeartClick;
@@ -39,7 +39,7 @@ export default class Card {
       .classList.toggle("element__heart_active");
     this._element.querySelector(".element__likes-count").textContent =
       this._likes.length + (deleteLike ? -1 : 1);
-    this._handleHeartClick(this._cardId, deleteLike, this);
+    this._handleHeartClick(this.cardId, deleteLike, this);
   };
   _trashClick = (evt) => {
     this._handleTrashClick(this);

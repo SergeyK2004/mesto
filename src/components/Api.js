@@ -71,8 +71,8 @@ export class Api {
     });
   }
 
-  delCard(cardId) {
-    return fetch(this._baseUrl + "cards/" + cardId, {
+  delCard(cardObject) {
+    return fetch(this._baseUrl + "cards/" + cardObject.cardId, {
       headers: this._headers,
       method: "DELETE",
     }).then((res) => {
