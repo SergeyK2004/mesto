@@ -40,6 +40,20 @@ export class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
+  setUserAvatar(item) {
+    return fetch(this._baseUrl + "users/me/avatar", {
+      headers: this._headers,
+      method: "PATCH",
+      body: JSON.stringify({
+        avatar: item.link,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
 
   setNewCard(item) {
     return fetch(this._baseUrl + "cards", {

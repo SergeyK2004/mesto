@@ -2,6 +2,7 @@ import "./index.css";
 import {
   validateSettings,
   popupFormProfile,
+  popupFormAvatar,
   inputName,
   inputSpec,
   popupFormNewCard,
@@ -34,6 +35,8 @@ const api = new Api({
 const newPopupProfile = new PopupWithForm({
   formSelector: ".popup_profile",
   handleFormSubmit: (item) => {
+    const buttonText = newPopupProfile._submitButton.textContent;
+    newPopupProfile._submitButton.textContent = "Сохранение..";
     api
       .setUserInfo(item)
       .then((res) => {
@@ -41,6 +44,26 @@ const newPopupProfile = new PopupWithForm({
           userName: res.name,
           userSpec: res.about,
         });
+        newPopupProfile._submitButton.textContent = buttonText;
+        newPopupProfile.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+});
+
+const newPopupAvatar = new PopupWithForm({
+  formSelector: ".popup_avatar",
+  handleFormSubmit: (item) => {
+    const buttonText = newPopupAvatar._submitButton.textContent;
+    newPopupAvatar._submitButton.textContent = "Сохранение..";
+    api
+      .setUserAvatar(item)
+      .then((res) => {
+        userObject.setUserAvatar(res.avatar);
+        newPopupAvatar._submitButton.textContent = buttonText;
+        newPopupAvatar.close();
       })
       .catch((err) => {
         console.log(err);
@@ -51,12 +74,15 @@ const newPopupProfile = new PopupWithForm({
 const newPopupNewCard = new PopupWithForm({
   formSelector: ".popup_new-card",
   handleFormSubmit: (item) => {
+    const buttonText = newPopupNewCard._submitButton.textContent;
+    newPopupNewCard._submitButton.textContent = "Сохранение..";
     api
       .setNewCard(item)
       .then((res) => {
         const cardElement = createCard(res);
         cardArray.addItem(cardElement, false);
-        console.log("1");
+        newPopupNewCard._submitButton.textContent = buttonText;
+        newPopupNewCard.close();
       })
       .catch((err) => {
         console.log(err);
@@ -66,11 +92,14 @@ const newPopupNewCard = new PopupWithForm({
 const newPopupConfirm = new PopupWithConfirm({
   formSelector: ".popup__confirm",
   handleFormSubmit: (cardObject) => {
+    const buttonText = newPopupConfirm._submitButton.textContent;
+    newPopupConfirm._submitButton.textContent = "Удаление..";
     api
       .delCard(cardObject._cardId)
       .then((res) => {
         cardObject.deleteCard();
-        console.log("2");
+        newPopupConfirm._submitButton.textContent = buttonText;
+        newPopupConfirm.close();
       })
       .catch((err) => {
         console.log(err);
@@ -106,20 +135,19 @@ function createCard(item) {
         .reverseLike(likedCardId, deleteLike)
         .then((res) => {
           cardObject.likesUpdate(res.likes);
-          console.log("3");
         })
         .catch((err) => {
           console.log(err);
         });
     },
     handleTrashClick: (cardObject) => {
-      // console.log(cardObject);
       newPopupConfirm.open(cardObject);
     },
   }).generateCard();
 }
 
 const profileValidator = new FormValidator(validateSettings, popupFormProfile);
+const avatarValidator = new FormValidator(validateSettings, popupFormAvatar);
 
 const newCardValidator = new FormValidator(validateSettings, popupFormNewCard);
 
@@ -132,11 +160,8 @@ function showPopupProfile(evt) {
 }
 
 function showPopupAvatar(evt) {
-  const myUser = userObject.getUserInfo();
-  inputName.value = myUser.profileName;
-  inputSpec.value = myUser.profileSpec;
-  profileValidator.enableValidation(true);
-  newPopupProfile.open();
+  avatarValidator.enableValidation(true);
+  newPopupAvatar.open();
 }
 
 function showPopupNewCard() {
@@ -184,4 +209,5 @@ profileAddButton.addEventListener("click", showPopupNewCard);
 profileEditAvatarButton.addEventListener("click", showPopupAvatar);
 
 profileValidator.enableValidation(false);
+avatarValidator.enableValidation(false);
 newCardValidator.enableValidation(false);

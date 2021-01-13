@@ -42,7 +42,6 @@ export default class Card {
     this._handleHeartClick(this._cardId, deleteLike, this);
   };
   _trashClick = (evt) => {
-    console.log("d");
     this._handleTrashClick(this);
   };
   deleteCard() {

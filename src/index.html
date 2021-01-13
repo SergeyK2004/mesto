@@ -170,6 +170,44 @@
         </div>
       </section>
 
+      <section class="popup popup_avatar">
+        <div class="popup__avatar-container">
+          <button
+            type="button"
+            class="popup__button-close popup__button-close_type_avatar"
+          >
+            <img
+              src="<%=require('./images/CloseIcon.svg')%>"
+              class="popup__img-close"
+              alt="Закрыть"
+            />
+          </button>
+          <h2 class="popup__title popup__title_type_new-card">
+            Обновить аватар
+          </h2>
+          <form
+            name="popupAvatar"
+            class="popup__form popup__form_avatar"
+            novalidate
+          >
+            <label class="popup__field">
+              <input
+                required
+                placeholder="Ссылка на картинку"
+                class="popup__input popup__input_type_link"
+                type="url"
+                name="link"
+                id="link-input"
+              />
+              <span class="popup__input-error" id="link-input-error"></span>
+            </label>
+            <button class="popup__button-submit" type="submit">
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </section>
+
       <section class="popup popup_image">
         <div class="popup__image-container">
           <button type="button" class="popup__button-close">

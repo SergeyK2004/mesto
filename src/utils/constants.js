@@ -1,5 +1,10 @@
 export const popupProfile = document.querySelector(".popup_profile");
 export const popupFormProfile = document.querySelector(".popup__form_profile");
+// export const popupFormProfileSubmit = popupFormProfile.querySelector(
+//   ".popup__button-submit"
+// );
+export const popupAvatar = document.querySelector(".popup_avatar");
+export const popupFormAvatar = document.querySelector(".popup__form_avatar");
 export const inputName = popupProfile.querySelector(".popup__input_type_name");
 export const inputSpec = popupProfile.querySelector(".popup__input_type_spec");
 
