@@ -43,12 +43,13 @@ const newPopupProfile = new PopupWithForm({
           userName: res.name,
           userSpec: res.about,
         });
-        newPopupProfile.setButtonText(buttonText);
         newPopupProfile.close();
       })
       .catch((err) => {
-        newPopupProfile.setButtonText(buttonText);
         console.log(err);
+      })
+      .finally(() => {
+        newPopupProfile.setButtonText(buttonText);
       });
   },
 });
@@ -62,12 +63,13 @@ const newPopupAvatar = new PopupWithForm({
       .setUserAvatar(item)
       .then((res) => {
         userObject.setUserAvatar(res.avatar);
-        newPopupAvatar.setButtonText(buttonText);
         newPopupAvatar.close();
       })
       .catch((err) => {
-        newPopupAvatar.setButtonText(buttonText);
         console.log(err);
+      })
+      .finally(() => {
+        newPopupAvatar.setButtonText(buttonText);
       });
   },
 });
@@ -82,12 +84,13 @@ const newPopupNewCard = new PopupWithForm({
       .then((res) => {
         const cardElement = createCard(res);
         cardArray.addItem(cardElement, false);
-        newPopupNewCard.setButtonText(buttonText);
         newPopupNewCard.close();
       })
       .catch((err) => {
-        newPopupNewCard.setButtonText(buttonText);
         console.log(err);
+      })
+      .finally(() => {
+        newPopupNewCard.setButtonText(buttonText);
       });
   },
 });
@@ -100,13 +103,14 @@ const newPopupConfirm = new PopupWithForm({
       .delCard(newPopupConfirm.cardObject)
       .then((res) => {
         newPopupConfirm.cardObject.deleteCard();
-        newPopupConfirm.setButtonText(buttonText);
         newPopupConfirm.close();
         newPopupConfirm.cardObject = "";
       })
       .catch((err) => {
-        newPopupConfirm.setButtonText(buttonText);
         console.log(err);
+      })
+      .finally(() => {
+        newPopupConfirm.setButtonText(buttonText);
       });
   },
 });
