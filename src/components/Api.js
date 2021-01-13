@@ -3,14 +3,19 @@ export class Api {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
   }
+
+  _getResponseData(res) {
+    if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
+  }
+
   getInitialCards() {
     return fetch(this._baseUrl + "cards", {
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
 
@@ -18,10 +23,7 @@ export class Api {
     return fetch(this._baseUrl + "users/me", {
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
 
@@ -34,10 +36,7 @@ export class Api {
         about: item.spec,
       }),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
   setUserAvatar(item) {
@@ -48,10 +47,7 @@ export class Api {
         avatar: item.link,
       }),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
 
@@ -64,10 +60,7 @@ export class Api {
         link: item.link,
       }),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
 
@@ -76,10 +69,7 @@ export class Api {
       headers: this._headers,
       method: "DELETE",
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
 
@@ -88,10 +78,7 @@ export class Api {
       headers: this._headers,
       method: deleteLike ? "DELETE" : "PUT",
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
 }

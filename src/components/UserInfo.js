@@ -5,11 +5,9 @@ export default class UserInfo {
     this._avatarElement = document.querySelector(avatarSelector);
   }
   getUserInfo() {
-    const userName = this._nameElement.textContent;
-    const userSpec = this._specElement.textContent;
     return {
-      profileName: userName,
-      profileSpec: userSpec,
+      profileName: this._nameElement.textContent,
+      profileSpec: this._specElement.textContent,
     };
   }
   setUserInfo({ userName, userSpec }) {

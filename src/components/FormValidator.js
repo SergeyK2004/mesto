@@ -63,30 +63,24 @@ export default class FormValidator {
     });
   };
 
-  _checkValidation(thisForm, settings, newForm) {
+  _checkValidation(thisForm, settings) {
     const inputList = Array.from(
       thisForm.querySelectorAll(settings.inputSelector)
     );
     const buttonElement = thisForm.querySelector(settings.submitButtonSelector);
     this._toggleButtonState(inputList, buttonElement, settings);
     inputList.forEach((inputElement) => {
-      if (newForm) {
-        this._hideInputError(thisForm, inputElement, settings);
-      } else {
-        this._checkInputValidity(thisForm, inputElement, settings);
-      }
+      this._hideInputError(thisForm, inputElement, settings);
     });
   }
 
-  enableValidation = (newForm = false) => {
-    this._newForm = newForm;
-    if (this._newForm) {
-      this._checkValidation(this._checkingForm, this._settings, this._newForm);
-    } else {
-      this._checkingForm.addEventListener("submit", function (evt) {
-        evt.preventDefault();
-      });
-      this._setEventListeners(this._checkingForm, this._settings);
-    }
+  clearFormErrors = () => {
+    this._checkValidation(this._checkingForm, this._settings);
+  };
+  enableValidation = () => {
+    this._checkingForm.addEventListener("submit", function (evt) {
+      evt.preventDefault();
+    });
+    this._setEventListeners(this._checkingForm, this._settings);
   };
 }

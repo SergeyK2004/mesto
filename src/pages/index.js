@@ -34,8 +34,8 @@ const api = new Api({
 const newPopupProfile = new PopupWithForm({
   formSelector: ".popup_profile",
   handleFormSubmit: (item) => {
-    const buttonText = newPopupProfile._submitButton.textContent;
-    newPopupProfile._submitButton.textContent = "Сохранение..";
+    const buttonText = newPopupProfile.getButtonText();
+    newPopupProfile.setButtonText("Сохранение..");
     api
       .setUserInfo(item)
       .then((res) => {
@@ -43,10 +43,11 @@ const newPopupProfile = new PopupWithForm({
           userName: res.name,
           userSpec: res.about,
         });
-        newPopupProfile._submitButton.textContent = buttonText;
+        newPopupProfile.setButtonText(buttonText);
         newPopupProfile.close();
       })
       .catch((err) => {
+        newPopupProfile.setButtonText(buttonText);
         console.log(err);
       });
   },
@@ -55,16 +56,17 @@ const newPopupProfile = new PopupWithForm({
 const newPopupAvatar = new PopupWithForm({
   formSelector: ".popup_avatar",
   handleFormSubmit: (item) => {
-    const buttonText = newPopupAvatar._submitButton.textContent;
-    newPopupAvatar._submitButton.textContent = "Сохранение..";
+    const buttonText = newPopupAvatar.getButtonText();
+    newPopupAvatar.setButtonText("Сохранение..");
     api
       .setUserAvatar(item)
       .then((res) => {
         userObject.setUserAvatar(res.avatar);
-        newPopupAvatar._submitButton.textContent = buttonText;
+        newPopupAvatar.setButtonText(buttonText);
         newPopupAvatar.close();
       })
       .catch((err) => {
+        newPopupAvatar.setButtonText(buttonText);
         console.log(err);
       });
   },
@@ -73,17 +75,18 @@ const newPopupAvatar = new PopupWithForm({
 const newPopupNewCard = new PopupWithForm({
   formSelector: ".popup_new-card",
   handleFormSubmit: (item) => {
-    const buttonText = newPopupNewCard._submitButton.textContent;
-    newPopupNewCard._submitButton.textContent = "Сохранение..";
+    const buttonText = newPopupNewCard.getButtonText();
+    newPopupNewCard.setButtonText("Сохранение..");
     api
       .setNewCard(item)
       .then((res) => {
         const cardElement = createCard(res);
         cardArray.addItem(cardElement, false);
-        newPopupNewCard._submitButton.textContent = buttonText;
+        newPopupNewCard.setButtonText(buttonText);
         newPopupNewCard.close();
       })
       .catch((err) => {
+        newPopupNewCard.setButtonText(buttonText);
         console.log(err);
       });
   },
@@ -91,17 +94,18 @@ const newPopupNewCard = new PopupWithForm({
 const newPopupConfirm = new PopupWithForm({
   formSelector: ".popup_confirm",
   handleFormSubmit: (item) => {
-    const buttonText = newPopupConfirm._submitButton.textContent;
-    newPopupConfirm._submitButton.textContent = "Удаление..";
+    const buttonText = newPopupConfirm.getButtonText();
+    newPopupConfirm.setButtonText("Удаление..");
     api
       .delCard(newPopupConfirm.cardObject)
       .then((res) => {
         newPopupConfirm.cardObject.deleteCard();
-        newPopupConfirm._submitButton.textContent = buttonText;
+        newPopupConfirm.setButtonText(buttonText);
         newPopupConfirm.close();
         newPopupConfirm.cardObject = "";
       })
       .catch((err) => {
+        newPopupConfirm.setButtonText(buttonText);
         console.log(err);
       });
   },
@@ -156,18 +160,18 @@ function showPopupProfile(evt) {
   const myUser = userObject.getUserInfo();
   inputName.value = myUser.profileName;
   inputSpec.value = myUser.profileSpec;
-  profileValidator.enableValidation(true);
+  profileValidator.clearFormErrors();
   newPopupProfile.open();
 }
 
 function showPopupAvatar(evt) {
-  avatarValidator.enableValidation(true);
+  avatarValidator.clearFormErrors();
   newPopupAvatar.open();
 }
 
 function showPopupNewCard() {
   popupFormNewCard.reset();
-  newCardValidator.enableValidation(true);
+  newCardValidator.clearFormErrors();
   newPopupNewCard.open();
 }
 const cardArray = new Section(
@@ -179,36 +183,29 @@ const cardArray = new Section(
   },
   ".elements__list"
 );
+// Изначально сделал эти два запроса друг за другом, они асонхронно и загружали все вместе,
+// но не смог понять, где брать тогда id пользователя,
+// чтобы при создании карточек понимать, где есть мусорная корзина, а где нет.
+// И как-то не допетрил сперва просто сделать параллельно два запроса, спасибо за подсказку
 
-api
-  .getUserInfo()
+Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((res) => {
-    thisUser = res._id;
+    thisUser = res[0]._id;
     userObject.setUserInfo({
-      userName: res.name,
-      userSpec: res.about,
+      userName: res[0].name,
+      userSpec: res[0].about,
     });
-    userObject.setUserAvatar(res.avatar);
+    userObject.setUserAvatar(res[0].avatar);
+    cardArray.renderItems(res[1]);
   })
   .catch((err) => {
-    thisUser = "Guest";
     console.log(err);
-  })
-  .finally(() => {
-    api
-      .getInitialCards()
-      .then((res) => {
-        cardArray.renderItems(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   });
 
 profileEditButton.addEventListener("click", showPopupProfile);
 profileAddButton.addEventListener("click", showPopupNewCard);
 profileEditAvatarButton.addEventListener("click", showPopupAvatar);
 
-profileValidator.enableValidation(false);
-avatarValidator.enableValidation(false);
-newCardValidator.enableValidation(false);
+profileValidator.enableValidation();
+avatarValidator.enableValidation();
+newCardValidator.enableValidation();

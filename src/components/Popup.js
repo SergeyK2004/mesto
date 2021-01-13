@@ -1,5 +1,3 @@
-import { popupCloseButton } from "../utils/constants.js";
-
 export default class Popup {
   constructor(formSelector) {
     this._formSelector = formSelector;
@@ -20,7 +18,7 @@ export default class Popup {
   }
 
   setEventListeners() {
-    this._closeButton.addEventListener("click", (evt) => {
+    this._closeButton.addEventListener("click", () => {
       this.close();
     });
     this._popupForm.addEventListener("click", (evt) => {
