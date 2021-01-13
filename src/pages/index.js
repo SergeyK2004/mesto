@@ -90,7 +90,7 @@ const newPopupNewCard = new PopupWithForm({
   },
 });
 const newPopupConfirm = new PopupWithConfirm({
-  formSelector: ".popup__confirm",
+  formSelector: ".popup_confirm",
   handleFormSubmit: (cardObject) => {
     const buttonText = newPopupConfirm._submitButton.textContent;
     newPopupConfirm._submitButton.textContent = "Удаление..";
